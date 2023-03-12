@@ -1,0 +1,22 @@
+version: '3'
+services:
+  webapp:
+    image: poonamag/smartcow-webapp
+    ports:
+      - "5000:5000"
+  react:
+    image: poonamag/smartcow-react
+    ports:
+      - "3000:3000"
+    links:
+      - webapp
+  nginx:
+    image: poonamag/smartcow-nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - webapp
+      - react
+    links:
+      - react
+      - webapp
